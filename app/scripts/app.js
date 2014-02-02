@@ -2,7 +2,8 @@
 
 angular.module('solarAngularApp', [
   'ngCookies',
-  'ngRoute'
+  'ngRoute',
+  'base64'
 ])
   .config(function ($routeProvider) {
     $routeProvider
