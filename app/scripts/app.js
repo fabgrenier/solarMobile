@@ -2,7 +2,7 @@
 
 angular.module('constants', []);
 angular.module('constants')
-  .constant('config', { server: 'http://192.168.1.46:8080/RBee-Product-Solar/webservices'});
+  .constant('config', { server: 'https://ws-test.rtone.fr/solar/webservices'});
 
 angular.module('services', []);
 angular.module('controllers', ['services', 'constants']);
