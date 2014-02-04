@@ -12,7 +12,8 @@ describe('Service: Requestbuilder', function () {
   }));
 
   it('should do something', function () {
-    expect(!!Requestbuilder).toBe(true);
+    Requestbuilder.createPingParams('proximus', '123456');
+
   });
 
 });

@@ -1,15 +1,22 @@
 'use strict';
 
-angular.module('solarAngularApp')
-  .controller('MainCtrl', ['$scope', '$http', 'RequestbuilderService', function ($scope, $http, RequestbuilderService) {
+angular.module('controllers')
+  .controller('MainCtrl', ['$scope', '$http', 'RequestbuilderService', '$location', 'config', '$log', function ($scope, $http, RequestbuilderService, $location, config, $log) {
     $scope.authenticate = function (login, password) {
         var parameters = RequestbuilderService.createPingParams(login, password);
-        $http.get("https://pvmeter.com/solar/webservices/ping?"+parameters)
-            .success(function (data) {
-                alert('ping succeed !');
-            })
-            .error(function (error){
-                alert('ping failed !');
-            });
-    };
+        var uri = config.server+'/ping';
+        $http.defaults.useXDomain = true;
+        $http({
+            method: 'GET',
+            url: uri,
+            params: parameters
+          })
+        .success(function () {
+            RequestbuilderService.storeCredentials(login, password);
+            $location.path('/installs');
+          })
+        .error(function () {
+            $log.error('ping failed !');
+          });
+      };
   }]);
