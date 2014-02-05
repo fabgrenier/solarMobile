@@ -1,10 +1,7 @@
 'use strict';
 
 angular.module('constants', []);
-angular.module('constants')
-  .constant('config', { server: 'https://ws-test.rtone.fr/solar/webservices'});
-
-angular.module('services', []);
+angular.module('services', ['constants']);
 angular.module('controllers', ['services', 'constants']);
 
 angular.module('solarAngularApp', [
@@ -27,6 +24,10 @@ angular.module('solarAngularApp', [
       .when('/consult/:deviceId', {
         templateUrl: 'views/consult.html',
         controller: 'ConsultCtrl'
+      })
+      .when('/contact', {
+        templateUrl: 'views/contact.html',
+        controller: 'ContactCtrl'
       })
       .otherwise({
         redirectTo: '/'

@@ -1,0 +1,39 @@
+<h1> Contact </h1>
+<form name="contactForm" role="form" class="form-horizontal">
+	<div class="form-group">
+    	<label class="col-sm-3 control-label" for="firstname">Firstname</label>
+    	<div class="col-sm-9">
+    		<input id="firstname" name="firstname" type="text" class="form-control" placeholder="Enter firstname" ng-model="contact.firstname" ng-required="true"
+    			ng-class="{ hasError: contactForm.firstname.$invalid && contactForm.firstname.$dirty }">
+    	</div>
+ 	</div>
+ 	<div class="form-group">
+    	<label  class="col-sm-3 control-label" for="lastname"> Lastname</label>
+    	<div class="col-sm-9">
+    		<input id="lastname" name="lastname" type="text" class="form-control" placeholder="Enter lastname" ng-model="contact.lastname" ng-required="true"
+    			ng-class="{ hasError: contactForm.lastname.$invalid && contactForm.lastname.$dirty }">
+    	</div>
+ 	</div>
+ 	<div class="form-group">
+    	<label  class="col-sm-3 control-label" for="email">Email address</label>
+    	<div class="col-sm-9">
+    		<input id="email" name="email" type="email" class="form-control" placeholder="Enter email" ng-model="contact.email" ng-required="true"
+    			ng-class="{ hasError: contactForm.email.$invalid && contactForm.email.$dirty }">
+    	</div>
+    	<span ng-show="contactForm.email.$error.email">You have to enter a valid email so we can spam you</span>
+  	</div>
+  	<div class="form-group">
+  		<label class="col-sm-3 control-label" for="message">Your message</label>
+  		<div class="col-sm-9">
+  			<textarea name="message" placeholder="Leave us a message" ng-model="contact.message" class="form-control" rows="10"/>
+  		</div>
+  	</div>
+
+	<div class="form-group">
+		<div class="col-sm-offset-3 col-sm-9">
+			<button type="submit" ng-click="sendContactMsg()" class="btn btn-primary" ng-disabled="contactForm.$invalid">Send</button>
+	    </div>
+	</div>
+
+  	
+</form>
