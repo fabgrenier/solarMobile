@@ -1,5 +1,9 @@
+<div ng-include="'views/header.html'" ng-init="menu='home'"/>
+
 <h1>Installation list</h1>
 
 <div ng-repeat="installation in installations.list">
 	<a ng-click="consult(installation)">{{ installation }}</a>
 </div>
+
+<div ng-include="'./views/footer.html'"/>

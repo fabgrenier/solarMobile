@@ -7,6 +7,7 @@ angular.module('controllers', ['services', 'constants']);
 angular.module('solarAngularApp', [
   'ngCookies',
   'ngRoute',
+  'ui.bootstrap',
   'services',
   'controllers',
   'constants'
