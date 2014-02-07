@@ -1,17 +1,21 @@
 <div ng-include="'views/header.html'" ng-init="menu='home'"/>
 
-<form role="form">
+<alert type="'danger'" ng-show="badLogin">Bad credentials...</alert>
+<form role="form" name="loginForm">
     <div class="form-group">
         <label for="login">Login :</label>
-        <input id="login" type="text" class="form-control" ng-model="login" placeholder="my login here..."/>
+        <input id="login" type="text" class="form-control" ng-model="login" ng-required="true" placeholder="my login here..." ng-focus="badLogin = false"/>
     </div>
 
     <div class="form-group">
         <label for="password">Password :</label>
-        <input id="password" type="password" class="form-control" ng-model="password" placeholder="my password here..."/>
+        <input id="password" type="password" class="form-control" ng-model="password" ng-required="true" placeholder="my password here..." ng-focus="badLogin = false"/>
     </div>
 
-    <button type="submit" class="btn btn-default" ng-click="authenticate(login, password)">Submit</button>
+    <button ng-model="submitButton" type="submit" class="btn btn-default" 
+    	ng-click="authenticate(login, password)"
+    	ng-disabled="loginForm.$invalid || preventMultipleSubmit"
+    	>Submit</button>
 </form>
 <br/>
 
