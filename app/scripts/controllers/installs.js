@@ -3,6 +3,9 @@
 angular.module('controllers')
   .controller('InstallsCtrl', ['$scope', '$route', 'RequestbuilderService', '$http', 'config', '$location', '$log', function ($scope, $route, RequestbuilderService, $http, config, $location, $log) {
     $scope.init = function () {
+      if(!RequestbuilderService.isLogged()){
+        $location.path('/');
+      }
       var parameters = RequestbuilderService.createGetInstallationsParams();
       var url = config.server+'/listDevices?'+parameters;
       $http.defaults.useXDomain = true;

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('controllers')
-  .controller('MainCtrl', ['$scope', '$http', 'RequestbuilderService', '$location', 'config', '$log', function ($scope, $http, RequestbuilderService, $location, config, $log) {
+  .controller('MainCtrl', ['$scope', '$http', 'RequestbuilderService', '$location', 'config', function ($scope, $http, RequestbuilderService, $location, config) {
     $scope.preventMultipleSubmit = false;
 
     $scope.authenticate = function (login, password) {
@@ -15,7 +15,7 @@ angular.module('controllers')
             params: parameters
           })
         .success(function () {
-          $scope.preventMultipleSubmit = false;
+            $scope.preventMultipleSubmit = false;
             RequestbuilderService.storeCredentials(login, password);
             $location.path('/installs');
           })

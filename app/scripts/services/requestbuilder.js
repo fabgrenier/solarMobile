@@ -21,6 +21,10 @@ angular.module('services')
 
           };
 
+        var isLogged = function(){
+          return $cookies.login && $cookies.password;
+        };
+
         var storeCredentials = function (login, password){
             $cookies.login = login;
             $cookies.password = password;
@@ -38,6 +42,7 @@ angular.module('services')
         return {
             createPingParams : callLogin,
             createGetInstallationsParams : callGetInstallations,
-            storeCredentials : storeCredentials
+            storeCredentials : storeCredentials,
+            isLogged : isLogged
           };
       }]);
