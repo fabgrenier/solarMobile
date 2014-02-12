@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('services')
-  .factory('RequestbuilderService', ['$filter', '$cookies', function RequestbuilderService($filter, $cookies) {
+  .factory('RequestbuilderService', ['$filter', '$cookies', function ($filter, $cookies) {
         var getUtcCurrentDate = function (){
             var now = new Date();
             var nowUtc = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(),  now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());

@@ -12,7 +12,7 @@ angular.module('solarAngularApp', [
   'controllers',
   'constants'
 ])
-  .config(function ($routeProvider) {
+  .config(['$routeProvider', function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -37,4 +37,4 @@ angular.module('solarAngularApp', [
       .otherwise({
         redirectTo: '/'
       });
-  });
+  }]);

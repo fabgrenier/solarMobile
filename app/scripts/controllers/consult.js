@@ -2,10 +2,9 @@
 
 angular.module('controllers')
   .controller('ConsultCtrl', ['$scope', '$routeParams', '$location', function ($scope, $routeParams, $location) {
-	if(! $routeParams.deviceId){
+	if(!$routeParams.deviceId) {
 		$location.path('/');
+	} else {
+		$scope.deviceId = $routeParams.deviceId;
 	}
-
-	$scope.deviceId = $routeParams.deviceId;
-
 }]);

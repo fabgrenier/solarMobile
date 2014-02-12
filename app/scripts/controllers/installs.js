@@ -5,17 +5,18 @@ angular.module('controllers')
     $scope.init = function () {
       if(!RequestbuilderService.isLogged()){
         $location.path('/');
+      } else {
+        var parameters = RequestbuilderService.createGetInstallationsParams();
+        var url = config.server+'/listDevices?'+parameters;
+        $http.defaults.useXDomain = true;
+        $http.get(url)
+          .success(function (data) {
+            $scope.installations = data;
+          })
+          .error(function (){
+            $log.error('get installations failed !');
+          });
       }
-      var parameters = RequestbuilderService.createGetInstallationsParams();
-      var url = config.server+'/listDevices?'+parameters;
-      $http.defaults.useXDomain = true;
-      $http.get(url)
-        .success(function (data) {
-          $scope.installations = data;
-        })
-        .error(function (){
-          $log.error('get installations failed !');
-        });
     };
 
     $scope.consult = function (deviceId) {
