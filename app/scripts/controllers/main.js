@@ -3,7 +3,7 @@
 angular.module('controllers')
   .controller('MainCtrl', ['$scope', '$http', 'RequestbuilderService', '$location', 'config', function ($scope, $http, RequestbuilderService, $location, config) {
     if(RequestbuilderService.isLogged()){
-        $location.path('/installs');  
+      $location.path('/installs');
     }
 
     $scope.preventMultipleSubmit = false;

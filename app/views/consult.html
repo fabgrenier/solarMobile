@@ -1,6 +1,23 @@
 <div ng-include="'views/header.html'" ng-init="menu='home'"></div>
 
-<h1> Installation n° {{ deviceId }}</h1>
+<div class="panel panel-default">
+  	<!-- Default panel contents -->
+	<div class="panel-heading"><h3>Installation n° {{ deviceId }}</h3></div>
 
+	<table class="table">
+		<thead>
+			<th>Date</th>
+			<th>Value</th>
+		</thead>
+		<tr ng-repeat="report in reports">
+			<td>{{ report.measureDate }}</td>
+			<td>{{ report.measure }}</td>
+		</tr>
+		<tr>
+			<td><b>Total :</b></td>
+			<td><b>{{ sumMeasures }} kWh</b></td>
+		</tr>
+	</table>
+</div>
 
 <div ng-include="'./views/footer.html'"></div>
