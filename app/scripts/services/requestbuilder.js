@@ -25,9 +25,10 @@ angular.module('services')
           return $cookies.login && $cookies.password;
         };
 
-        var storeCredentials = function (login, password){
+        var storeCredentials = function (login, password, userAuth){
             $cookies.login = login;
             $cookies.password = password;
+            $cookies.userAuth = userAuth; TODO
           };
 
         var callGetInstallations = function(){

@@ -11,16 +11,16 @@ angular.module('controllers')
     $scope.authenticate = function (login, password) {
         $scope.preventMultipleSubmit = true;
         var parameters = RequestbuilderService.createPingParams(login, password);
-        var uri = config.server+'/ping';
+        var uri = config.server+'/authenticate';
         $http.defaults.useXDomain = true;
         $http({
             method: 'GET',
             url: uri,
             params: parameters
           })
-        .success(function () {
+        .success(function (data) {
             $scope.preventMultipleSubmit = false;
-            RequestbuilderService.storeCredentials(login, password);
+            RequestbuilderService.storeCredentials(login, password, data);
             $location.path('/installs');
           })
         .error(function () {
