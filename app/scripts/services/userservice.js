@@ -1,14 +1,19 @@
 'use strict';
 
 angular.module('solarAngularApp')
-  .factory('Userservice', ['$cookies', function ($cookies) {
+  .factory('Userservice', ['$cookieStore', function ($cookieStore) {
     
     var userId = function (promiseUser) {
-    	promiseUser($cookies.userAuth.firstName, $cookies.userAuth.lastName);
-    };
+        promiseUser($cookieStore.get('userAuth').firstName, $cookieStore.get('userAuth').lastName);
+      };
+
+    var isLogged = function(){
+        return $cookieStore.get('login') && $cookieStore.get('password');
+      };
 
     return {
-    	returnUserIdentity: userId
-    }
+        returnUserIdentity: userId,
+        isLogged: isLogged
+      };
 
   }]);

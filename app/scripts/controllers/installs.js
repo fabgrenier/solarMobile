@@ -3,15 +3,9 @@
 angular.module('controllers')
   .controller('InstallsCtrl', ['$scope', '$route', 'RequestbuilderService', '$http', 'config', '$location', '$log', 'Userservice',  function ($scope, $route, RequestbuilderService, $http, config, $location, $log, Userservice) {
     $scope.init = function () {
-      if(!RequestbuilderService.isLogged()){
+      if(!Userservice.isLogged()){
         $location.path('/');
       } else {
-
-        Userservice.returnUserIdentity(function (_firstName, _lastName){
-          $scope.user.firstName = _firstName;
-          $scope.user.lastName = _lastName;
-        });
-
         var parameters = RequestbuilderService.createGetInstallationsParams();
         var url = config.server+'/listDevices?'+parameters;
         $http.defaults.useXDomain = true;
@@ -21,6 +15,12 @@ angular.module('controllers')
           })
           .error(function (){
             $log.error('get installations failed !');
+          });
+
+        Userservice.returnUserIdentity(function (_firstName, _lastName){
+            $scope.user = Object;
+            $scope.user.firstName = _firstName;
+            $scope.user.lastName = _lastName;
           });
       }
     };

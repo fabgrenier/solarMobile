@@ -9,9 +9,9 @@ angular.module('controllers')
 
 		$scope.getMeasures = function () {
 			var parameters = RequestbuilderService.createGetMeasuresParams($scope.deviceId);
-	        var url = config.server+'/getDeviceProduction?'+parameters;
-	        $http.defaults.useXDomain = true;
-	        $http.get(url)
+      var url = config.server+'/getDeviceProduction?'+parameters;
+	    $http.defaults.useXDomain = true;
+	    $http.get(url)
 	          .success(function (data) {
 	            $scope.reports = data.records;
 	            $scope.getTotalMeasures();

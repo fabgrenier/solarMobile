@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('controllers')
-  .controller('MainCtrl', ['$scope', '$http', 'RequestbuilderService', '$location', 'config', function ($scope, $http, RequestbuilderService, $location, config) {
-    if(RequestbuilderService.isLogged()){
+  .controller('MainCtrl', ['$scope', '$http', 'RequestbuilderService', '$location', 'config', 'Userservice', function ($scope, $http, RequestbuilderService, $location, config, Userservice) {
+    if(Userservice.isLogged()){
       $location.path('/installs');
     }
 
