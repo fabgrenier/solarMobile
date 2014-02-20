@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('solarAngularApp')
+angular.module('services')
   .factory('Userservice', ['$cookieStore', function ($cookieStore) {
     
     var userId = function (promiseUser) {

@@ -6,6 +6,7 @@ angular.module('controllers')
       if(!Userservice.isLogged()){
         $location.path('/');
       } else {
+        $scope.failToRequest = false;
         var parameters = RequestbuilderService.createGetInstallationsParams();
         var url = config.server+'/listDevices?'+parameters;
         $http.defaults.useXDomain = true;
@@ -14,7 +15,7 @@ angular.module('controllers')
             $scope.installations = data;
           })
           .error(function (){
-            $log.error('get installations failed !');
+            $scope.failToRequest = true;
           });
 
         Userservice.returnUserIdentity(function (_firstName, _lastName){

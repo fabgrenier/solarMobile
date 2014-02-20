@@ -8,6 +8,7 @@ angular.module('solarAngularApp', [
   'ngCookies',
   'ngRoute',
   'ui.bootstrap',
+  'highcharts-ng',
   'services',
   'controllers',
   'constants'

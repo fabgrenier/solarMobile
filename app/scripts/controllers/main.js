@@ -9,6 +9,7 @@ angular.module('controllers')
     $scope.preventMultipleSubmit = false;
 
     $scope.authenticate = function (login, password) {
+        $scope.failToRequest = false;
         $scope.preventMultipleSubmit = true;
         var parameters = RequestbuilderService.createPingParams(login, password);
         var uri = config.server+'/authenticate';
@@ -26,6 +27,7 @@ angular.module('controllers')
         .error(function () {
             $scope.preventMultipleSubmit = false;
             $scope.badLogin = true;
+            //$scope.failToRequest = true;
           });
       };
   }]);
