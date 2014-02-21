@@ -21,12 +21,6 @@ angular.module('services')
 
           };
 
-        var storeCredentials = function (login, password, userAuth){
-            $cookieStore.put('login', login);
-            $cookieStore.put('password', password);
-            $cookieStore.put('userAuth', userAuth);
-          };
-
         var callGetInstallations = function(){
             var login = $cookieStore.get('login');
             var password = $cookieStore.get('password');
@@ -49,7 +43,6 @@ angular.module('services')
         return {
             createPingParams : callLogin,
             createGetInstallationsParams : callGetInstallations,
-            storeCredentials : storeCredentials,
             createGetMeasuresParams : createGetMeasuresParams
           };
       }]);

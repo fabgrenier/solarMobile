@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('services')
-  .factory('Userservice', ['$cookieStore', '$http', function ($cookieStore, $http) {
+  .factory('Userservice', ['$cookieStore', '$http', 'config', 'RequestbuilderService', function ($cookieStore, $http,  config, RequestbuilderService) {
     
     var userId = function (promiseUser) {
         promiseUser($cookieStore.get('userAuth').firstName, $cookieStore.get('userAuth').lastName);
@@ -10,6 +10,13 @@ angular.module('services')
     var isLogged = function(){
         return $cookieStore.get('login') && $cookieStore.get('password');
       };
+
+
+    var storeCredentials = function (login, password, userAuth){
+        $cookieStore.put('login', login);
+        $cookieStore.put('password', password);
+        $cookieStore.put('userAuth', userAuth);
+    };
 
     var getAuthenticate = function(login, password, promiseSuccess, promiseError, retry){
         var parameters = RequestbuilderService.createPingParams(login, password);
@@ -39,6 +46,7 @@ angular.module('services')
     return {
         returnUserIdentity: userId,
         isLogged: isLogged,
+        storeCredentials : storeCredentials,
         getAuthenticate: getAuthenticate
       };
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('controllers')
-  .controller('MainCtrl', ['$scope', 'RequestbuilderService', '$location', 'config', 'Userservice', function ($scope, RequestbuilderService, $location, config, Userservice) {
+  .controller('MainCtrl', ['$scope', '$location', 'Userservice', function ($scope, $location, Userservice) {
     if(Userservice.isLogged()){
       $location.path('/installs');
     }
@@ -15,11 +15,10 @@ angular.module('controllers')
         Userservice.getAuthenticate(login, password,
             function (data) {
                 $scope.preventMultipleSubmit = false;
-                RequestbuilderService.storeCredentials(login, password, data);
+                Userservice.storeCredentials(login, password, data);
                 $location.path('/installs');
-                $scope.retryQuery = 0;
             },
-            function (data) {
+            function () {
                     $scope.preventMultipleSubmit = false;
                     $scope.badLogin = true;
                     //$scope.failToRequest = true;
