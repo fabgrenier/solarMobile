@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('controllers')
-  .controller('ConsultCtrl', ['$scope', '$routeParams', '$location', 'RequestbuilderService', 'config', 'Consultservice', function ($scope, $routeParams, $location, RequestbuilderService, config, Consultservice) {
+  .controller('ConsultCtrl', ['$scope', '$routeParams', '$location', 'Consultservice', function ($scope, $routeParams, $location, Consultservice) {
 	if(!$routeParams.deviceId) {
 		$location.path('/');
 	} else {
@@ -10,9 +10,7 @@ angular.module('controllers')
 		$scope.getMeasures = function () {
 
 	      $scope.failToRequest = false;
-          var parameters = RequestbuilderService.createGetMeasuresParams($scope.deviceId);
-          var url = config.server+'/getDeviceProduction?'+parameters;
-          Consultservice.getProduction(url,
+          Consultservice.getProduction($scope.deviceId,
               function (data) {
 	            $scope.reports = data.records;
 	            $scope.getTotalMeasures();

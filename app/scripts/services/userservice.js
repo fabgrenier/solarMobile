@@ -11,7 +11,9 @@ angular.module('services')
         return $cookieStore.get('login') && $cookieStore.get('password');
       };
 
-    var getAuthenticate = function(uri, parameters, promiseSuccess, promiseError, retry){
+    var getAuthenticate = function(login, password, promiseSuccess, promiseError, retry){
+        var parameters = RequestbuilderService.createPingParams(login, password);
+        var uri = config.server+'/authenticate';
         $http.defaults.useXDomain = true;
         $http({
             method: 'GET',
@@ -22,7 +24,11 @@ angular.module('services')
         .error(function(data, status){
                 if((status === 404 || status === 400) && retry < 3){
                   retry ++;
-                  getAuthenticate(uri, parameters, promiseSuccess, promiseError, retry);
+                    setTimeout(
+                        function (){
+                            getAuthenticate(login, password, promiseSuccess, promiseError, retry);
+                        }
+                        , (retry * 1000));
                 } else {
                   promiseError();
                 }

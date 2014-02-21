@@ -12,9 +12,7 @@ angular.module('controllers')
     $scope.authenticate = function (login, password) {
         $scope.failToRequest = false;
         $scope.preventMultipleSubmit = true;
-        var parameters = RequestbuilderService.createPingParams(login, password);
-        var uri = config.server+'/authenticate';
-        Userservice.getAuthenticate(uri, parameters,
+        Userservice.getAuthenticate(login, password,
             function (data) {
                 $scope.preventMultipleSubmit = false;
                 RequestbuilderService.storeCredentials(login, password, data);

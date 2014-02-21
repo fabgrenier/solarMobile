@@ -1,15 +1,21 @@
 'use strict';
 
 angular.module('services')
-    .factory('Consultservice', ['$http', function ($http) {
+    .factory('Consultservice', ['$http','RequestbuilderService', 'config', function ($http, RequestbuilderService, config ) {
 
-        var getInstallationList = function (url, promiseSuccess, promiseError, retry){
-            $http.get(url)
+        var getInstallationList = function (promiseSuccess, promiseError, retry){
+            var parameters = RequestbuilderService.createGetInstallationsParams();
+            var uri = config.server+'/listDevices?'+parameters;
+            $http.get(uri)
                 .success(promiseSuccess)
-                .error(function (){
+                .error(function (data, status){
                     if((status === 404 || status === 400) && retry < 3){
                         retry ++;
-                        getInstallationList(uri, promiseSuccess, promiseError, retry);
+                        setTimeout(
+                            function (){
+                                getInstallationList(promiseSuccess, promiseError, retry);
+                            }
+                            , (retry * 1000));
                     } else {
                         promiseError();
                     }
@@ -17,13 +23,19 @@ angular.module('services')
 
         };
 
-        var getProduction = function (url, promiseSuccess, promiseError, retry){
-            $http.get(url)
+        var getProduction = function (deviceId, promiseSuccess, promiseError, retry){
+            var parameters = RequestbuilderService.createGetMeasuresParams(deviceId);
+            var uri = config.server+'/getDeviceProduction?'+parameters;
+            $http.get(uri)
                 .success(promiseSuccess)
-                .error(function (){
+                .error(function (data, status){
                     if((status === 404 || status === 400) && retry < 3){
                         retry ++;
-                        getProduction(uri, promiseSuccess, promiseError, retry);
+                        setTimeout(
+                            function (){
+                                getProduction(deviceId, promiseSuccess, promiseError, retry);
+                            }
+                            , (retry * 1000));
                     } else {
                         promiseError();
                     }

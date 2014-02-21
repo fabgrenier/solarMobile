@@ -1,15 +1,14 @@
 'use strict';
 
 angular.module('controllers')
-  .controller('InstallsCtrl', ['$scope', '$route', 'RequestbuilderService', 'config', '$location', 'Userservice', 'Consultservice',  function ($scope, $route, RequestbuilderService, config, $location, Userservice, Consultservice) {
+  .controller('InstallsCtrl', ['$scope', '$route', '$location', 'Userservice', 'Consultservice',  function ($scope, $route, $location, Userservice, Consultservice) {
     $scope.init = function () {
       if(!Userservice.isLogged()){
         $location.path('/');
       } else {
         $scope.failToRequest = false;
-        var parameters = RequestbuilderService.createGetInstallationsParams();
-        var url = config.server+'/listDevices?'+parameters;
-        Consultservice.getInstallationList(url,
+
+        Consultservice.getInstallationList(
             function (data) {
                 $scope.installations = data;
             },
