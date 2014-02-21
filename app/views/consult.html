@@ -7,7 +7,7 @@
 	<highchart id="chart1" config="chartConfig"></highchart>
 
 	<div>
-		<table class="table table-bordered table-responsive">
+		<table class="table table-bordered">
 			<thead>
 				<th><h3>Période <b>{{ startPeriod | date:'yyyy-MM-dd' }} - {{ endPeriod | date:'yyyy-MM-dd' }}</b></h3> </th>
 				<th><h3>Total production <b>{{ sumMeasures | number:2 }} kWh</b></h3></th>
@@ -15,16 +15,18 @@
 		</table>		
 	</div>
 
-	<table class="table table-striped table-hover table-responsive">
-		<thead>
-			<th>Date</th>
-			<th>Value (Wh)</th>
-		</thead>
-		<tr ng-repeat="report in reports">
-			<td>{{ report.measureDate | date:'yyyy-MM-dd' }}</td>
-			<td>{{ report.measure | number:2 }}</td>
-		</tr>
-	</table>
+	<div class="table-responsive">
+		<table class="table table-striped table-hover">
+			<thead>
+				<th>Date</th>
+				<th>Value (Wh)</th>
+			</thead>
+			<tr ng-repeat="report in reports">
+				<td>{{ report.measureDate | date:'yyyy-MM-dd' }}</td>
+				<td>{{ report.measure | number:2 }}</td>
+			</tr>
+		</table>
+	</div>
 </div>
 
 <a role="button" class="btn btn-primary btn-lg btn-block" href="javascript:void();" ng-href="#/installs">Back</a>

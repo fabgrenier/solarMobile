@@ -5,7 +5,7 @@ angular.module('controllers')
     if(Userservice.isLogged()){
       $location.path('/installs');
     }
-
+    $scope.hideLogout = true;
     $scope.preventMultipleSubmit = false;
 
     $scope.authenticate = function (login, password) {
