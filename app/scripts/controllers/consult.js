@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('controllers')
-  .controller('ConsultCtrl', ['$scope', '$routeParams', '$location', '$http', '$log', 'RequestbuilderService', 'config', 'Consultservice', function ($scope, $routeParams, $location, $http, $log, RequestbuilderService, config, Consultservice) {
+  .controller('ConsultCtrl', ['$scope', '$routeParams', '$location', 'RequestbuilderService', 'config', 'Consultservice', function ($scope, $routeParams, $location, RequestbuilderService, config, Consultservice) {
 	if(!$routeParams.deviceId) {
 		$location.path('/');
 	} else {
@@ -9,20 +9,21 @@ angular.module('controllers')
 
 		$scope.getMeasures = function () {
 
-	        $scope.failToRequest = false;
-			var parameters = RequestbuilderService.createGetMeasuresParams($scope.deviceId);
-      var url = config.server+'/getDeviceProduction?'+parameters;
-	    $http.defaults.useXDomain = true;
-	    $http.get(url)
-	          .success(function (data) {
+	      $scope.failToRequest = false;
+          var parameters = RequestbuilderService.createGetMeasuresParams($scope.deviceId);
+          var url = config.server+'/getDeviceProduction?'+parameters;
+          Consultservice.getProduction(url,
+              function (data) {
 	            $scope.reports = data.records;
 	            $scope.getTotalMeasures();
 	            $scope.chartConfig = Consultservice.createCharts(data.records);
-	          })
-	          .error(function (){
-	          	$scope.failToRequest = true;
-	          });
-		};
+	          },
+              function (){
+                $scope.failToRequest = true;
+              },
+              0
+          );
+      };
 
 		$scope.getTotalMeasures = function() {
 			$scope.sumMeasures = 0;

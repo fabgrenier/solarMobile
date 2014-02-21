@@ -5,16 +5,15 @@
 	<div class="panel-heading"><h3>Installation n° {{ deviceId }}</h3></div>
 
 	<highchart id="chart1" config="chartConfig"></highchart>
-
+    <br>
 	<div>
 		<table class="table table-bordered">
 			<thead>
-				<th><h3>Période <b>{{ startPeriod | date:'yyyy-MM-dd' }} - {{ endPeriod | date:'yyyy-MM-dd' }}</b></h3> </th>
-				<th><h3>Total production <b>{{ sumMeasures | number:2 }} kWh</b></h3></th>
+				<th><h3>Période :<br/><b>{{ startPeriod | date:'yyyy-MM-dd' }} - {{ endPeriod | date:'yyyy-MM-dd' }}</b></h3> </th>
+				<th><h3>Total production :<br/><b>{{ sumMeasures | number:2 }} kWh</b></h3></th>
 			</thead>
 		</table>		
 	</div>
-
 	<div class="table-responsive">
 		<table class="table table-striped table-hover">
 			<thead>
@@ -23,12 +22,12 @@
 			</thead>
 			<tr ng-repeat="report in reports">
 				<td>{{ report.measureDate | date:'yyyy-MM-dd' }}</td>
-				<td>{{ report.measure | number:2 }}</td>
+				<td>{{ report.measure }}</td>
 			</tr>
 		</table>
 	</div>
 </div>
 
 <a role="button" class="btn btn-primary btn-lg btn-block" href="javascript:void();" ng-href="#/installs">Back</a>
-
+<br>
 <div ng-include="'./views/footer.html'"></div>

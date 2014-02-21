@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('controllers')
-  .controller('InstallsCtrl', ['$scope', '$route', 'RequestbuilderService', '$http', 'config', '$location', '$log', 'Userservice',  function ($scope, $route, RequestbuilderService, $http, config, $location, $log, Userservice) {
+  .controller('InstallsCtrl', ['$scope', '$route', 'RequestbuilderService', 'config', '$location', 'Userservice', 'Consultservice',  function ($scope, $route, RequestbuilderService, config, $location, Userservice, Consultservice) {
     $scope.init = function () {
       if(!Userservice.isLogged()){
         $location.path('/');
@@ -9,14 +9,16 @@ angular.module('controllers')
         $scope.failToRequest = false;
         var parameters = RequestbuilderService.createGetInstallationsParams();
         var url = config.server+'/listDevices?'+parameters;
-        $http.defaults.useXDomain = true;
-        $http.get(url)
-          .success(function (data) {
-            $scope.installations = data;
-          })
-          .error(function (){
-            $scope.failToRequest = true;
-          });
+        Consultservice.getInstallationList(url,
+            function (data) {
+                $scope.installations = data;
+            },
+            function (){
+                $scope.failToRequest = true;
+            },
+            0
+        );
+
 
         Userservice.returnUserIdentity(function (_firstName, _lastName){
             $scope.user = Object;
