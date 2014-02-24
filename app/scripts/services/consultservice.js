@@ -6,6 +6,7 @@ angular.module('services')
         var getInstallationList = function (promiseSuccess, promiseError, retry){
             var parameters = RequestbuilderService.createGetInstallationsParams();
             var uri = config.server+'/listDevices?'+parameters;
+            $http.defaults.useXDomain = true;
             $http.get(uri)
                 .success(promiseSuccess)
                 .error(function (data, status){
@@ -26,6 +27,7 @@ angular.module('services')
         var getProduction = function (deviceId, promiseSuccess, promiseError, retry){
             var parameters = RequestbuilderService.createGetMeasuresParams(deviceId);
             var uri = config.server+'/getDeviceProduction?'+parameters;
+            $http.defaults.useXDomain = true;
             $http.get(uri)
                 .success(promiseSuccess)
                 .error(function (data, status){

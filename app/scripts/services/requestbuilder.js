@@ -17,17 +17,16 @@ angular.module('services')
         var callLogin = function(login, password){
             var currentdate = getUtcCurrentDate();
             var mdpDigest = getMdpDigest(login, password, currentdate);
-            return {login: login, mps: mdpDigest, requestDate: currentdate};
+
+            return 'login='+login+'&mps='+mdpDigest+'&requestDate='+currentdate;
 
           };
 
         var callGetInstallations = function(){
             var login = $cookieStore.get('login');
             var password = $cookieStore.get('password');
-            var currentdate = getUtcCurrentDate();
-            var mdpDigest = getMdpDigest(login, password, currentdate);
-
-            return 'login='+login+'&mps='+mdpDigest+'&requestDate='+currentdate;
+          
+            return callLogin(login, password);
           };
 
         var createGetMeasuresParams = function(serialNumber){
