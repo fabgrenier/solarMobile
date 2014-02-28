@@ -16,7 +16,11 @@ angular.module('controllers')
             function (data) {
                 $scope.preventMultipleSubmit = false;
                 Userservice.storeCredentials(login, password, data);
-                $location.path('/installs');
+                if(data.producer){
+                    $location.path('/unavailable');
+                } else {
+                    $location.path('/installs');
+                }
               },
             function () {
                 $scope.preventMultipleSubmit = false;

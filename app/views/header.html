@@ -1,10 +1,16 @@
     <div class="header" >
-        <img class="pull-right" src="images/logo_ront.png"/>
-        <ul class="nav nav-pills">
-            <li ng-class="{active: menu === 'home'}"><a ng-href="#/">Home</a></li>
-            <li ng-class="{active: menu === 'about'}"><a ng-href="#/about">About</a></li>
-            <li ng-class="{active: menu === 'contact'}"><a ng-href="#/contact">Contact</a></li>
-        </ul>
+        <div class="row">
+            <div class="col-xs-4 col-md-7">
+                <img src="images/logo_ront.png"/>
+            </div>
+            <div class="col-xs-8 col-md-5">
+                <ul class="nav nav-pills pull-right">
+                    <li ng-class="{active: menu === 'home'}"><a ng-href="#/">Home</a></li>
+                    <li ng-class="{active: menu === 'about'}"><a ng-href="#/about">About</a></li>
+                    <!--<li ng-class="{active: menu === 'contact'}"><a ng-href="#/contact">Contact</a></li>-->
+                </ul>
+            </div>
+        </div>
     </div>
 
     <alert type="'danger'" ng-show="failToRequest">Can't reach the server... Is your Internet connection OK ?</alert>

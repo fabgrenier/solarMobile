@@ -1,5 +1,5 @@
 <div ng-include="'views/header.html'" ng-init="menu='home'"></div>
-
+<br/>
 <div class="progress progress-striped active" ng-show="loading">
   <div class="progress-bar" role="progressbar" aria-valuenow="{{ pb.progress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ pb.progress }}%">
     <span class="sr-only">{{ pb.progress }}% Complete</span>
@@ -8,8 +8,8 @@
 <div class="panel panel-default"  ng-show="!loading">
 	<div class="panel-heading">
         <div class="row">
-            <div class="col-md-9"><h3>Installation S/N {{ deviceId }}</h3></div>
-            <div class="col-md-3">
+            <div class="col-xs-6 col-md-9"><h5>Installation S/N {{ deviceId }}</h5></div>
+            <div class="col-xs-6 col-md-3 text-right">
                 <select ng-model="period" ng-change="updatePeriod()">
                     <option value="yesterday">Yesterday</option>
                     <option value="7lastdays">7 last days</option>
@@ -21,13 +21,13 @@
 	<div>
 		<table class="table table-bordered">
 			<thead>
-				<th class="text-center">Period<br/><strong>{{ startPeriod | date:'yyyy-MM-dd' }} - {{ endPeriod | date:'yyyy-MM-dd' }}</strong> </th>
+				<th class="text-center">Period<br/><strong>{{ startPeriod | date:'yyyy-MM-dd' }} to {{ endPeriod | date:'yyyy-MM-dd' }}</strong> </th>
 				<th class="text-center">Total production<br/><strong>{{ sumMeasures | number:2 }} kWh</strong></th>
 			</thead>
 		</table>		
 	</div>
 	<highchart id="prodChart" config="chartConfig"></highchart>
-    <br>
+    <br/>
 	<div class="table-responsive">
 		<table class="table table-striped table-hover">
 			<thead>

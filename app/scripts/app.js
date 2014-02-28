@@ -39,6 +39,10 @@ angular.module('solarAngularApp', [
         templateUrl: 'views/logout.html',
         controller: 'LogoutCtrl'
       })
+      .when('/unavailable', {
+        templateUrl: 'views/unavailable.html',
+        controller: 'UnavailableCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

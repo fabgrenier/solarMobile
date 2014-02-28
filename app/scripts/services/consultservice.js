@@ -136,7 +136,7 @@ angular.module('services')
                   },
                 yAxis: {
                     type: 'number',
-                    title: {text: 'Wh'},
+                    title: {text: ''},
                     min: 0
                   },
                 useHighStocks: false
