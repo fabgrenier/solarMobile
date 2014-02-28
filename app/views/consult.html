@@ -7,18 +7,22 @@
 </div>
 <div class="panel panel-default"  ng-show="!loading">
 	<div class="panel-heading">
-		<h3>Installation S/N {{ deviceId }}</h3>
-		<select ng-model="period" ng-change="updatePeriod()">
-			<option value="yesterday">Yesterday</option>
-			<option value="7lastdays">7 last days</option>
-			<option value="30lastdays">30 last days</option>
-		</select>
+        <div class="row">
+            <div class="col-md-9"><h3>Installation S/N {{ deviceId }}</h3></div>
+            <div class="col-md-3">
+                <select ng-model="period" ng-change="updatePeriod()">
+                    <option value="yesterday">Yesterday</option>
+                    <option value="7lastdays">7 last days</option>
+                    <option value="30lastdays">30 last days</option>
+                </select>
+            </div>
+        </div>
 	</div>
 	<div>
 		<table class="table table-bordered">
 			<thead>
-				<th>Period<br/><b>{{ startPeriod | date:'yyyy-MM-dd' }} - {{ endPeriod | date:'yyyy-MM-dd' }}</b> </th>
-				<th>Total production<br/><b>{{ sumMeasures | number:2 }} kWh</b></th>
+				<th class="text-center">Period<br/><strong>{{ startPeriod | date:'yyyy-MM-dd' }} - {{ endPeriod | date:'yyyy-MM-dd' }}</strong> </th>
+				<th class="text-center">Total production<br/><strong>{{ sumMeasures | number:2 }} kWh</strong></th>
 			</thead>
 		</table>		
 	</div>
@@ -27,12 +31,12 @@
 	<div class="table-responsive">
 		<table class="table table-striped table-hover">
 			<thead>
-				<th>Date</th>
-				<th>Value (Wh)</th>
+				<th class="text-center">Date</th>
+				<th class="text-center">Value (Wh)</th>
 			</thead>
 			<tr ng-repeat="report in reports">
-				<td>{{ report.measureDate | date: dateFormat }}</td>
-				<td>{{ report.measure }}</td>
+				<td style="padding-left: 3em;">{{ report.measureDate | date: dateFormat }}</td>
+				<td style="padding-left: 3em;">{{ report.measure }}</td>
 			</tr>
 		</table>
 	</div>

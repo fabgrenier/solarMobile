@@ -17,14 +17,13 @@ angular.module('controllers')
                 $scope.preventMultipleSubmit = false;
                 Userservice.storeCredentials(login, password, data);
                 $location.path('/installs');
-            },
+              },
             function () {
-                    $scope.preventMultipleSubmit = false;
-                    $scope.badLogin = true;
-                    //$scope.failToRequest = true;
-            },
+                $scope.preventMultipleSubmit = false;
+                $scope.badLogin = true;
+                //$scope.failToRequest = true;
+              },
             0
         );
-
       };
   }]);

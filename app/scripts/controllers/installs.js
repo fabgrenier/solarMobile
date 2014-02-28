@@ -11,10 +11,10 @@ angular.module('controllers')
         Consultservice.getInstallationList(
             function (data) {
                 $scope.installations = data;
-            },
+              },
             function (){
                 $scope.failToRequest = true;
-            },
+              },
             0
         );
 

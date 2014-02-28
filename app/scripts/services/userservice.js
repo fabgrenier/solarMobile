@@ -22,20 +22,20 @@ angular.module('services')
         var uri = config.server+'/authenticate?'+parameters;
         $http.defaults.useXDomain = true;
         $http.get(uri)
-        	.success(promiseSuccess)
-        	.error(function (data, status){
+            .success(promiseSuccess)
+            .error(function (data, status){
                 if((status === 404 || status === 400) && retry < 3){
                   retry ++;
                   setTimeout(
-                  	function (){
-                    	getAuthenticate(login, password, promiseSuccess, promiseError, retry);
-                    }
-                    , (retry * 1000));
+                    function (){
+                        getAuthenticate(login, password, promiseSuccess, promiseError, retry);
+                      },
+                    (retry * 1000));
                 } else {
                   promiseError();
                 }
               }
-        	);
+            );
       };
 
     return {
