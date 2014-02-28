@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('services')
-    .factory('Consultservice', ['$http','RequestbuilderService', 'config', function ($http, RequestbuilderService, config ) {
+    .factory('Consultservice', ['$http', '$filter', 'RequestbuilderService', 'config', function ($http, $filter, RequestbuilderService, config ) {
 
         var getInstallationList = function (promiseSuccess, promiseError, retry){
             var parameters = RequestbuilderService.createGetInstallationsParams();
@@ -24,18 +24,50 @@ angular.module('services')
 
         };
 
-        var getProduction = function (deviceId, promiseSuccess, promiseError, retry){
-            var parameters = RequestbuilderService.createGetMeasuresParams(deviceId);
+        var createDatesAndStepForPeriod = function(period) {
+            var dates = '';
+            var now = new Date();
+            var nowUtc = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(),  0, 0, 0);
+            nowUtc.setMilliseconds(nowUtc.getMilliseconds() - (60 * 60 * 1000));
+                 
+
+            if(period === 'yesterday'){
+                dates = '&step=h&endDate=' + $filter('date')(nowUtc, 'yyyy-MM-dd\'T\'HH:mm:ss');
+
+                nowUtc.setMilliseconds(nowUtc.getMilliseconds() - (24 * 60 * 60 * 1000));
+                dates = dates + '&startDate=' + $filter('date')(nowUtc, 'yyyy-MM-dd\'T\'HH:mm:ss');
+
+            } else if (period === '7lastdays') {
+                dates = '&step=d&endDate=' + $filter('date')(nowUtc, 'yyyy-MM-dd\'T\'HH:mm:ss');
+
+                nowUtc.setMilliseconds(nowUtc.getMilliseconds() - (7 * 24 * 60 * 60 * 1000));
+                dates = dates + '&startDate=' + $filter('date')(nowUtc, 'yyyy-MM-dd\'T\'HH:mm:ss');
+
+            } else if (period === '30lastdays') {
+                dates = '&step=d&endDate=' + $filter('date')(nowUtc, 'yyyy-MM-dd\'T\'HH:mm:ss');
+
+                nowUtc.setMilliseconds(nowUtc.getMilliseconds() - (30 * 24 * 60 * 60 * 1000));
+                dates = dates + '&startDate=' + $filter('date')(nowUtc, 'yyyy-MM-dd\'T\'HH:mm:ss');
+               
+            }
+            return dates;
+        }
+
+        var getProduction = function (deviceId, period, progressBar, promiseSuccess, promiseError, retry){
+
+            var periodDates = createDatesAndStepForPeriod(period);
+            var parameters = RequestbuilderService.createGetMeasuresParams(deviceId, periodDates);
             var uri = config.server+'/getDeviceProduction?'+parameters;
             $http.defaults.useXDomain = true;
             $http.get(uri)
                 .success(promiseSuccess)
                 .error(function (data, status){
                     if((status === 404 || status === 400) && retry < 3){
+                        progressBar.progress += 20;
                         retry ++;
                         setTimeout(
                             function (){
-                                getProduction(deviceId, promiseSuccess, promiseError, retry);
+                                getProduction(deviceId, period, progressBar, promiseSuccess, promiseError, retry);
                             }
                             , (retry * 1000));
                     } else {
@@ -45,7 +77,21 @@ angular.module('services')
 
         };
 
-        var createCharts = function (reports){
+        var updateCharts = function (reports, type, chartConfig){
+            var reportInChartFormat = [];
+
+            for(var i = 0; i < reports.length; i++) {
+                var report = reports[i];
+                reportInChartFormat[i] = [];
+                reportInChartFormat[i][0] = new Date(report.measureDate).getTime();
+                reportInChartFormat[i][1] = parseFloat(report.measure);
+            }
+
+            chartConfig.options.chart.type = type;
+            chartConfig.series[0].data = reportInChartFormat;
+        };
+
+        var createCharts = function (reports, type){
             var reportInChartFormat = [];
 
             for(var i = 0; i < reports.length; i++) {
@@ -62,7 +108,7 @@ angular.module('services')
                     //This is the Main Highcharts chart config. Any Highchart options are valid here.
                     //will be ovverriden by values specified below.
                     chart: {
-                        type: 'column'
+                        type: type
                     },
                     tooltip: {
                         style: {
@@ -81,7 +127,7 @@ angular.module('services')
                 }],
                 //Title configuration
                 title: {
-                    text: 'Production par jour'
+                    text: 'Your production in a smart chart'
                 },
                 //Boolean to control showng loading status on chart
                 loading: false,
@@ -110,6 +156,7 @@ angular.module('services')
         return {
             createCharts: createCharts,
             getInstallationList : getInstallationList,
-            getProduction: getProduction
+            getProduction: getProduction,
+            updateCharts: updateCharts
         }
     }]);

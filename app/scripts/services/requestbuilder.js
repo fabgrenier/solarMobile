@@ -29,14 +29,11 @@ angular.module('services')
             return callLogin(login, password);
           };
 
-        var createGetMeasuresParams = function(serialNumber){
+        var createGetMeasuresParams = function(serialNumber, dates){
             var url = callGetInstallations();
             var sn = '&serialNumber='+serialNumber;
-            var startDate = '&startDate=2013-06-14T00:00:00';
-            var endDate = '&endDate=2013-06-21T00:00:00';
-            var step = '&step=d';
-
-            return url + sn + startDate + endDate + step;
+            
+            return url + sn + dates;
           };
 
         return {
